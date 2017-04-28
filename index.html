@@ -1,0 +1,368 @@
+<script src="http://www.google.com/jsapi" type="text/javascript"></script> 
+<script type="text/javascript">google.load("jquery", "1.3.2");</script>
+
+<style type="text/css">
+	body {
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+		font-weight:300;
+		font-size:18px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 1250px;
+	}	
+	h1 {
+		font-weight:300;
+	}
+	
+	.disclaimerbox {
+		background-color: #eee;		
+		border: 1px solid #eeeeee;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+		padding: 20px;
+	}
+
+	video.header-vid {
+		height: 140px;
+		border: 1px solid black;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+	
+	img.header-img {
+		height: 140px;
+		border: 1px solid black;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+	
+	img.rounded {
+		border: 0px solid #eeeeee;
+		border-radius: 10px ;
+		-moz-border-radius: 10px ;
+		-webkit-border-radius: 10px ;
+	}
+	
+	a:link,a:visited
+	{
+		color: #1367a7;
+		text-decoration: none;
+	}
+	a:hover {
+		color: #208799;
+	}
+	
+	td.dl-link {
+		height: 160px;
+		text-align: center;
+		font-size: 22px;
+	}
+	
+	.layered-paper-big { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		        0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+		        5px 5px 0 0px #fff, /* The second layer */
+		        5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+		        10px 10px 0 0px #fff, /* The third layer */
+		        10px 10px 1px 1px rgba(0,0,0,0.35), /* The third layer shadow */
+		        15px 15px 0 0px #fff, /* The fourth layer */
+		        15px 15px 1px 1px rgba(0,0,0,0.35), /* The fourth layer shadow */
+		        20px 20px 0 0px #fff, /* The fifth layer */
+		        20px 20px 1px 1px rgba(0,0,0,0.35), /* The fifth layer shadow */
+		        25px 25px 0 0px #fff, /* The fifth layer */
+		        25px 25px 1px 1px rgba(0,0,0,0.35); /* The fifth layer shadow */
+		margin-left: 10px;
+		margin-right: 45px;
+	}
+
+
+	.layered-paper { /* modified from: http://css-tricks.com/snippets/css/layered-paper/ */
+		box-shadow:
+		        0px 0px 1px 1px rgba(0,0,0,0.35), /* The top layer shadow */
+		        5px 5px 0 0px #fff, /* The second layer */
+		        5px 5px 1px 1px rgba(0,0,0,0.35), /* The second layer shadow */
+		        10px 10px 0 0px #fff, /* The third layer */
+		        10px 10px 1px 1px rgba(0,0,0,0.35); /* The third layer shadow */
+		margin-top: 5px;
+		margin-left: 10px;
+		margin-right: 30px;
+		margin-bottom: 5px;
+	}
+	
+	.vert-cent {
+		position: relative;
+	    top: 50%;
+	    transform: translateY(-50%);
+	}
+	
+	hr
+	{
+		border: 0;
+		height: 1px;
+		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+	}
+</style>
+
+<html>
+  <head>
+		<title>Real-Time User-Guided Image Colorization with Learned Deep Priors</title>
+		<meta property="og:image" content="https://junyanz.github.io/iColor/index_files/fig1_single.png"/>
+		<meta property="og:title" content="Real-Time User-Guided Image Colorization with Learned Deep Priors. In SIGGRAPH, 2017." />
+  </head>
+
+  <body>
+    <br>
+          <center>
+          	<!-- <span style="font-size:42px">Split-Brain Autoencoders:</span><br> -->
+          	<!-- <span style="font-size:32px">Unsupervised Learning by Cross-Channel Prediction</span> -->
+          	<span style="font-size:42px">Real-Time User-Guided Image Colorization with Learned Deep Priors</span><br>
+	  		  <table align=center width=1200px>
+	  			  <tr>
+	  	              <td align=center width=100px>
+	  					<center>
+	  						<span style="font-size:20px"><a href="https://richzhang.github.io/">Richard Zhang*</a></span>
+		  		  		</center>
+		  		  	  </td>
+	  	              <td align=center width=100px>
+	  					<center>
+	  						<span style="font-size:20px"><a href="http://people.eecs.berkeley.edu/~junyanz/">Jun-Yan Zhu*</a></span>
+		  		  		</center>
+		  		  	  </td>
+	  	              <td align=center width=100px>
+	  					<center>
+	  						<span style="font-size:20px"><a href="http://web.mit.edu/phillipi/">Phillip Isola</a></span>
+		  		  		</center>
+		  		  	  </td>
+	  			  <!-- </tr> -->
+	  		  <!-- </table> -->
+	  		  <!-- <table align=center width=800px> -->
+	  			  <!-- <tr> -->
+	  	              <td align=center width=100px>
+	  					<center>
+	  						<span style="font-size:20px"><a href="http://young-geng.xyz//">Xinyang Geng</a></span>
+		  		  		</center>
+		  		  	  </td>
+	  	              <td align=center width=100px>
+	  					<center>
+	  						<!-- <span style="font-size:24px"><a href="http://people.eecs.berkeley.edu/~junyanz/">Angela S. Lin</a></span> -->
+	  						<span style="font-size:20px">Angela S. Lin</span>
+		  		  		</center>
+		  		  	  </td>
+	  	              <td align=center width=100px>
+	  					<center>
+	  						<!-- <span style="font-size:24px"><a href="http://web.mit.edu/phillipi/">Tianhe Yu</a></span> -->
+	  						<span style="font-size:20px">Tianhe Yu</span>
+		  		  		</center>
+		  		  	  </td>
+	  	              <td align=center width=100px>
+	  					<center>
+	  						<span style="font-size:20px"><a href="http://www.eecs.berkeley.edu/~efros/">Alexei A. Efros</a></span>
+		  		  		</center>
+		  		  	  </td>
+	  			  </tr>
+			  </table>
+
+
+  		  <table align=center width=800px>
+  			  <tr>
+  	              <td width=400px>
+  					<center>
+  	                	<img class="rounded" src = "./index_files/fig1_single.png" height="275px"></img>
+  	                	<br>
+					</center>
+  	              </td>
+                </tr>
+  	              <td width=400px>
+  					<center>
+  	                	<!-- <span style="font-size:14px"><i>Example  input  grayscale  photos  and  output  colorizations  from  our  algorithm. These examples are cases where our model works especially well. For randomly selected examples, see the <a href="#perform_comp"><b>Performance comparisons</b></a> section below.</i> -->
+					</center>
+  	              </td>
+  		  </table>
+
+          	<!-- <span style="font-size:20px">(*indicates equal contribution)</span><br> -->
+          	<span style="font-size:20px">Department of EECS, University of California, Berkeley</span>
+          	<!-- <span style="font-size:22px">In CVPR, 2017.</span><br> -->
+          		<!-- <span style="font-size:30px">ECCV 2016.</span> -->
+
+	  		  <table align=center width=400px>
+	  			  <tr>
+	  	              <td align=center width=200px>
+	  					<center>
+	  						<span style="font-size:22px"><a href='https://github.com/junyanz/iColor_release'> [GitHub]</a></span>
+		  		  		</center>
+		  		  	  </td>
+	  	              <td align=center width=200px>
+	  					<center>
+	  						<span style="font-size:22px"><a href='https://arxiv.org/abs/1611.09842'>[SIGGRAPH 2017]</a></span>
+		  		  		</center>
+		  		  	  </td>
+			  </table>
+          </center>
+  		  <br>
+
+
+  		  <br>
+		  <hr>
+
+  		  <table align=center width=900px>
+	  		 	<center><h1>Demo Video</h1></center>
+  		  <br>
+		  <hr>
+
+  		  <table align=center width=900px>
+	  		 	<center><h1>Abstract</h1></center>
+				We propose a deep learning approach for user-guided image colorization. The system directly maps a grayscale image, along with sparse, local user ``hints" to an output colorization with a Convolutional Neural Network (CNN). Rather than using hand-defined rules, the network propagates user edits by fusing low-level cues along with high-level semantic information, <i>learned from large-scale data</i>. We train on a million images, with simulated user inputs. To guide the user towards efficient input selection, the system recommends likely colors based on the input image and current user inputs. The colorization is performed in a single feed-forward pass, enabling real-time use. Even with randomly simulated user inputs, we show that the proposed system helps novice users quickly create realistic colorizations, and show large improvements in colorization quality with just a minute of use. In addition, we show that the framework can incorporate other user "hints" as to the desired colorization, showing an application to color histogram transfer.
+  		  <br>
+		  <hr>
+
+ 		<center><h1>Try the model</h1></center>
+		  <!-- The GitHub page has scripts for fetching our model, and a slightly modified version of Caffe which does color pre-processing (if so desired). We recommend going to the <a href='https://github.com/richzhang/splitbrainauto'>GitHub</a> page and following instructions in the readme. -->
+
+  		  	  <br>
+
+  		  <table align=center width=600px>
+  			  <tr>
+  			  <br>
+  	                <td align=center width=600px>
+  					<center>
+						  <td><a href='https://github.com/junyanz/iColor_release'><img class="round" style="width:600px" src=""/></a></td>
+	  		  		</center>
+	  		  		</td>
+			  </tr>
+		  </table>
+
+  		  <table align=center width=800px>
+			  <tr><center>
+				<span style="font-size:28px"><a href='https://github.com/junyanz/iColor_release'>[GitHub]</a>
+			  <br>
+			  </center></tr>
+			  <!-- <tr><center> -->
+ 			<!-- <span style="font-size:28px"><a>&nbsp;Model: [Prototxt] Weights: [Unrescaled] [Rescaled]</a></span> -->
+			  <!-- </center></tr> -->
+		  </table>
+
+  		  <br>
+		  <hr>
+
+
+ 		<!-- <center><h1>Method (Local Hints Network)</h1></center> -->
+
+<!--   		  <table align=center width=900px>
+	  		<br>
+  			  <tr>
+  	              <td align=center width=400px>
+						  <td><img class="round" style="width:400px" src="./index_files/imgs/fig2a.png"/></a>
+						  </td>
+						  <td width=100px></td>
+				  </td>
+  	              <td align=center width=400px>
+						  <td><img class="round" style="width:400px" src="./index_files/imgs/fig2b.png"/></a>
+						  </td>
+	  		  	  </td>
+			  </tr>
+	 	  </table> -->
+
+		  <!-- <hr> -->
+
+<!--   		  <table align=center width=900px>
+	  		<br>
+  			  <tr>
+  	              <td align=center width=400px>
+						  <td><img class="round" style="width:400px" src="./index_files/imgs/fig2a.png"/></a>
+						  </td>
+						  <td width=100px></td>
+				  </td>
+  	              <td align=center width=400px>
+						  <td><img class="round" style="width:400px" src="./index_files/imgs/fig2b.png"/></a>
+						  </td>
+	  		  	  </td>
+			  </tr>
+	 	  </table> -->
+
+ 		<center><h1>User Study Results</h1></center>
+		  <hr>
+
+ 		<center><h1>Results on Legacy Photos</h1></center>
+		  <hr>
+
+ 		<!-- <center><h1>Method (Global Hints Network)</h1></center> -->
+		  <!-- <hr> -->
+
+ 		<center><h1>Histogram Transfer Results</h1></center>
+
+  		  <table align=center width=900px>
+	  		<br>
+  			  <tr>
+  	              <!-- <td align=center width=400px> -->
+						  <td>
+						  <img class="round" style="width:900px" src="./index_files/lab_all_figures45k.jpeg"/></a>
+						  </td>
+				  <!-- <td width=100px></td> -->
+				  <!-- </td> -->
+	<!--   	              <td align=center width=400px>
+							  <td>
+							  <img class="round" style="width:400px" src="./index_files/imgs/fig2b.png"/></a>
+							  </td>
+		  		  	  </td>
+ -->			  </tr>
+	 	  </table>
+
+      	  <br>
+		  <hr>
+
+  		  <table align=center width=600	px>
+	 		<center><h1>Paper</h1></center>
+  			  <tr>
+				  <td><a href=""><img class="layered-paper-big" style="height:175px" src="./index_files/imgs/page1.png"/></a></td>
+				  <td><span style="font-size:14pt">R. Zhang*, J.Y. Zhu*, P. Isola, <br>X. Geng, A. S. Lin, T. Yu, A. A. Efros.<br>
+				  <b>Real-Time User-Guided Image Colorization with Learned Deep Priors.</b><br>
+				  In SIGGRAPH, 2017. (hosted on <a href="">arXiv</a>)</a>
+				  <span style="font-size:4pt"><a href=""><br></a>
+				  </span>
+				  </td>
+  	              </td>
+              </tr>
+  		  </table>
+		  <br>
+
+		  <table align=center width=600px>
+			  <tr>
+				  <td><span style="font-size:24pt"><center>
+				  	<a href="./index_files/bibtex_siggraph2017_ideepcolor.txt">[Bibtex]</a>
+  	              </center></td>
+              </tr>
+  		  </table>
+
+  		  <br>
+		  <hr>
+		  	
+  		  <table align=center width=1000px>
+  			  <tr>
+  	              <td width=400px>
+  					<left>
+	  		  <center><h1>Acknowledgements</h1></center>
+				We thank members of the Berkeley Artificial Intelligence Research Lab (BAIR) for helpful discussions. We also thank the participants in our user study. This work has been supported, in part, by NSF SMA-1514512, a Google Grant, BAIR, and a hardware donation by NVIDIA.
+			</left>
+		</td>
+			 </tr>
+		</table>
+
+		<br><br>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75863369-3', 'auto');
+  ga('send', 'pageview');
+
+</script>
+              
+</body>
+</html>
+ 
